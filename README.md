@@ -1,6 +1,10 @@
-# VtmCc
+# VTM: Character Creator
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.3.
+This project is intended to help quickly, and easily, build out a first time character sheet for new players.
+
+The idea is that by selecting certain values it will help ease the first time creation of the character sheet itself by providing dot allocation warnings and other items that may impact whether or not your character will require additional ST approval.
+
+This is still a major work in progress, and the hope is to get it to a nicely refined state where it can be used by anyone for a variety of VTM chronicles.
 
 ## Development server
 
