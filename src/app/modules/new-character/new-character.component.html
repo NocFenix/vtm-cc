@@ -1,0 +1,152 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+<div class="p-grid" *ngIf="character">
+  <div class="p-col-12 p-md-10 p-col-nogutter">
+    <div class="p-col-12 p-col-nogutter">
+      <p-accordion [multiple]="true">
+        <p-accordionTab header="Basic Information">
+          This is the basic information for your character.
+        </p-accordionTab>
+        <div class="p-col-12">
+          <div class="p-grid">
+
+            <div class="p-col-12 p-md-4">
+              <br />
+              <span class="ui-float-label">
+                <input id="float-input" type="text" size="30" pInputText [(ngModel)]="character.Name"> 
+                <label for="float-input">Name</label>
+              </span>
+
+              <br />
+              <span class="ui-float-label">
+                <input id="float-input" type="text" size="30" pInputText [(ngModel)]="character.Chronicle"> 
+                <label for="float-input">Chronicle</label>
+              </span>
+
+              <br />
+              <span class="ui-float-label">
+                <input id="float-input" type="text" size="30" pInputText [(ngModel)]="character.Sire"> 
+                <label for="float-input">Sire</label>
+              </span>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+              <br />
+              <span class="ui-float-label">
+                <input id="float-input" type="text" size="30" pInputText> 
+                <label for="float-input">Concept</label>
+              </span>
+
+              <br />
+              <span class="ui-float-label">
+                <input id="float-input" type="text" size="30" pInputText> 
+                <label for="float-input">Ambition</label>
+              </span>
+
+              <br />
+              <span class="ui-float-label">
+                <input id="float-input" type="text" size="30" pInputText> 
+                <label for="float-input">Desire</label>
+              </span>
+            </div>
+            
+            <div class="p-col-12 p-md-4">
+              <br />
+              <span class="ui-float-label">
+                <input id="float-input" type="text" size="30" pInputText> 
+                <label for="float-input">Predator</label>
+              </span>
+
+              <br />
+              <span class="ui-float-label">
+                <p-dropdown [options]="clans" [(ngModel)]="character.Clan"></p-dropdown>
+                <label for="float-input">Clan</label>
+              </span>
+
+              <br />
+              <span class="ui-float-label">
+                <p-dropdown [options]="generations" [(ngModel)]="character.Generation"></p-dropdown>
+                <label for="float-input">Generation</label>
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+        <p-accordionTab header="Attributes">
+          Starting attributes for a new character should have the following dot allocations: <br />
+          1 at 4 dots, 3 at 3 dots, 2 at 4 dots, and 1 at 1 dot. <br />
+          Anything outside of these allocations will require ST approval based on XP exependitures. <br />
+        </p-accordionTab>
+        <div class="p-col-12">
+          <div class="p-grid">
+
+            <div class="p-col-12 p-md-4">
+              <div *ngFor="let pAttr of physicalAttr">
+                <span class="attrName">{{pAttr.Name}}</span>
+                <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                  [(ngModel)]="pAttr.Dots" (onRate)="onDotsChange($event, pAttr)">;</p-rating>
+              </div>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+              <div *ngFor="let sAttr of socialAttr">
+                <span class="attrName">{{sAttr.Name}}</span>
+                <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                  [(ngModel)]="sAttr.Dots" (onRate)="onDotsChange($event, sAttr)">;</p-rating>
+              </div>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+              <div *ngFor="let mAttr of mentalAttr">
+                <span class="attrName">{{mAttr.Name}}</span>
+                <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                  [(ngModel)]="mAttr.Dots" (onRate)="onDotsChange($event, mAttr)">;</p-rating>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+
+        <p-accordionTab header="Skills">
+          Starting skills for a new character should have the following dot allocations: <br />
+          blah blah blah <br />
+          1 at 4 dots, 3 at 3 dots, 2 at 4 dots, and 1 at 1 dot. <br />
+          Anything outside of these allocations will require ST approval based on XP exependitures. <br />
+        </p-accordionTab>
+        <div class="p-col-12">
+          <div class="p-grid">
+
+            <div class="p-col-12 p-md-4">
+              <div *ngFor="let pSkill of physicalSkills">
+                <span class="attrName">{{pSkill.Name}}</span>
+                <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                  [(ngModel)]="pSkill.Dots" (onRate)="onDotsChange($event, pSkill)">;</p-rating>
+              </div>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+              <div *ngFor="let sSkill of socialSkills">
+                <span class="attrName">{{sSkill.Name}}</span>
+                <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                  [(ngModel)]="sSkill.Dots" (onRate)="onDotsChange($event, sSkill)">;</p-rating>
+              </div>
+            </div>
+
+            <div class="p-col-12 p-md-4">
+              <div *ngFor="let mSkill of mentalSkills">
+                <span class="attrName">{{mSkill.Name}}</span>
+                <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                  [(ngModel)]="mSkill.Dots" (onRate)="onDotsChange($event, mSkill)">;</p-rating>
+              </div>
+            </div>
+        
+          </div>
+        </div>
+      </p-accordion>
+    </div>
+
+  </div>
+</div>
+
+  
