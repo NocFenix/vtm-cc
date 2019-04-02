@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterService } from 'src/app/services/character.service';
-import { Character, ClanType, Trait, TraitType } from 'src/app/models/index';
+import { Character, ClanType, Trait, TraitType, SkillDistributionMethod } from 'src/app/models/index';
 import { SelectItem, MessageService } from 'primeng/api';
 import { ClansService } from 'src/app/services/clans.service';
 
@@ -101,10 +101,10 @@ export class NewCharacterComponent implements OnInit {
   private attrOneDotsAllowed: number = 1;
 
   // skills at creation
-  //private skillFourDotsAllowed: number = 1;
-  private skillThreeDotsAllowed: number = 3;
-  private skillTwoDotsAllowed: number = 3;
-  private skillOneDotsAllowed: number = 3;
+  public skillFourDotsAllowed: number = 0;
+  public skillThreeDotsAllowed: number = 3;
+  public skillTwoDotsAllowed: number = 5;
+  public skillOneDotsAllowed: number = 7;
 
   constructor (
     private charSvc: CharacterService,
@@ -152,6 +152,47 @@ export class NewCharacterComponent implements OnInit {
 
   }
 
+  public skillDistributionMethod: SkillDistributionMethod = SkillDistributionMethod.Balanced;
+  public skillDistributionMethods: SelectItem[] = [
+    {
+      value: +SkillDistributionMethod.JackOfAllTrades,
+      label: "Jack of All Trades",
+    },
+    {
+      value: +SkillDistributionMethod.Balanced,
+      label: "Balanced",
+    },
+    {
+      value: +SkillDistributionMethod.Specialist,
+      label: "Specialist",
+    },
+  ]
+
+  public onSkillDistributionMethodChanged(event: any) {
+    let distro = +event.value as SkillDistributionMethod;
+    switch (distro) {
+      case SkillDistributionMethod.JackOfAllTrades:
+        this.skillOneDotsAllowed = 10;
+        this.skillTwoDotsAllowed = 8;
+        this.skillThreeDotsAllowed = 1;
+        this.skillFourDotsAllowed = 0;
+        break;
+      case SkillDistributionMethod.Balanced:
+        this.skillOneDotsAllowed = 7;
+        this.skillTwoDotsAllowed = 5;
+        this.skillThreeDotsAllowed = 3;
+        this.skillFourDotsAllowed = 0;
+        break;
+      case SkillDistributionMethod.Specialist:
+        this.skillOneDotsAllowed = 3;
+        this.skillTwoDotsAllowed = 3;
+        this.skillThreeDotsAllowed = 3;
+        this.skillFourDotsAllowed = 1;
+        break;
+    }
+    this.character.Skills.forEach(s => s.Dots = 0);
+  }
+  
   public onDotsChange(event: any, attr: Trait): void {
     this.updateAttrDots(attr, +event.value);
   }
@@ -210,7 +251,7 @@ export class NewCharacterComponent implements OnInit {
           }
           break;
         case 5:
-          this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Cannot set any attributes to ${dots}. This will require ST approval if left unchanged.` });
+          this.alertSvc.add({severity:'error', summary: 'Invalid Dot Allocation', detail:`Cannot set any attributes to ${dots}. This will require ST approval if left unchanged.` });
           break;
       }
     }
@@ -248,12 +289,12 @@ export class NewCharacterComponent implements OnInit {
           }
           break;
         case 4:
-          // if (skillAtFourDots > this.skillFourDotsAllowed) {
-          //   this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Exceeded maximum number of skills at ${dots}. This will require ST approval if left unchanged.` });
-          // }
-          // break;
+          if (skillAtFourDots > this.skillFourDotsAllowed) {
+            this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Exceeded maximum number of skills at ${dots}. This will require ST approval if left unchanged.` });
+          }
+          break;
         case 5:
-          this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Cannot set any skills to ${dots}. This will require ST approval if left unchanged.` });
+          this.alertSvc.add({severity:'error', summary: 'Invalid Dot Allocation', detail:`Cannot set any skills to ${dots}. This will require ST approval if left unchanged.` });
           break;
       }
 

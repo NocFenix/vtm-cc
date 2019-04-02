@@ -152,10 +152,38 @@
 
         <p-accordionTab header="Skills">
           <div class="pat-header-content">
-            Starting skills for a new character should have the following dot allocations: <br />
+            Starting skills for a new character can fall into one of three categories. Select from the list to choose a dstribution method. <br />
             <br />
+            <br />
+            <span class="ui-float-label">
+              <p-dropdown [options]="skillDistributionMethods" [(ngModel)]="skillDistributionMethod"
+                (onChange)="onSkillDistributionMethodChanged($event)" >
+              </p-dropdown>
+              <label for="float-input">Skill Distribution Method</label>
+            </span>
 
-            <span class="skillAllottmentName">Professions</span><br />
+            <span style="font-weight: bold;" *ngIf="skillFourDotsAllowed > 0">
+              {{skillFourDotsAllowed}} skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="4" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+
+            <span style="font-weight: bold;">
+              {{skillThreeDotsAllowed}} skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="3" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+
+            <span style="font-weight: bold;">
+              {{skillTwoDotsAllowed}} skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="2" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+              
+            <span style="font-weight: bold;">
+              {{skillOneDotsAllowed}} skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="1" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+            <br />
+       
+            <!-- <span class="skillAllottmentName">Professions</span><br />
             Decide on skills from past or current professions.<br />
             <span style="font-weight: bold;">
               Two skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
@@ -195,7 +223,7 @@
 
             Getting the first dot in Academics, Science, Craft or Performance grants a Specialty in that skill.
             <br />
-            <br />
+            <br /> -->
 
             Anything outside of these allocations will require ST approval based on XP exependitures.
             <br />
