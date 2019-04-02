@@ -16,6 +16,14 @@ export class NewCharacterComponent implements OnInit {
   public clans: SelectItem[] = [];
   public generations: SelectItem[] = [
     {
+      label: '16th Gen',
+      value: 16
+    },
+    {
+      label: '15th Gen',
+      value: 15
+    },
+    {
       label: '14th Gen',
       value: 14
     },
@@ -26,6 +34,55 @@ export class NewCharacterComponent implements OnInit {
     {
       label: '12th Gen',
       value: 12
+    },
+    {
+      label: '11th Gen',
+      value: 11
+    },
+    {
+      label: '10th Gen',
+      value: 10
+    },
+    {
+      label: '9th Gen',
+      value: 9
+    },
+    {
+      label: '8th Gen',
+      value: 8
+    },
+    {
+      label: '7th Gen (Elder)',
+      value: 7
+    },
+    {
+      label: '6th Gen (Elder)',
+      value: 6
+    },
+    {
+      label: '5th Gen (Methuselah)',
+      value: 5,
+      disabled: true,
+    },
+    {
+      label: '4th Gen (Methuselah)',
+      value: 4,
+      disabled: true,
+    },
+    {
+      label: '3rd Gen (Antediluvian)',
+      value: 3,
+      disabled: true,
+    },
+    {
+      label: '2nd Gen (Enochian)',
+      value: 2,
+      disabled: true,
+    },
+    {
+      label: '1st Gen (Caine)',
+      value: 1,
+      disabled: true,
     },
   ];
 
@@ -54,7 +111,11 @@ export class NewCharacterComponent implements OnInit {
   ngOnInit() {
     this.character = this.charSvc.GetNewCharacter();
     this.FillAttributesAndSkills();
+    this.UpdateClansList();
+  }
 
+  private UpdateClansList() {
+    this.clans = [];
     var clanList = this.clanSvc.GetClans();
     clanList.forEach(x => {
       this.clans.push({
@@ -132,6 +193,77 @@ export class NewCharacterComponent implements OnInit {
           break;
       }
     }
+  }
+
+  public checkGenForClan(event: any): void {
+    let clan: ClanType = +event.value as ClanType;
+    console.log(clan);
+    if (clan === ClanType.ThinBlooded) {
+      this.alertSvc.add({severity:'warn', summary: 'Thin-Blood Selected', detail:'Thin-Blooded must be higher than 13th Gen. Increasing to 14th Gen.' });
+      this.character.Generation = 14;
+    }
+    else {
+      switch (this.character.Generation) {
+        case 16:
+          this.alertSvc.add({severity:'error', summary: 'Thin-Blood Gen Selected', detail:'16th Gen must be Thin-Blooded. Lowering to 13th Gen.' });
+          this.character.Generation = 13;
+          break;
+        case 15:
+        case 14:
+          this.alertSvc.add({severity:'warn', summary: 'Thin-Blood Gen Selected', detail:'Higher than 13th Gen is usually Thin-Blooded. This may require ST approval.' });
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  public checkClanForGen(event: any): void {
+    switch (+event.value) {
+      case 16:
+        if (this.character.Clan !== ClanType.ThinBlooded) {
+          this.alertSvc.add({severity:'error', summary: 'Thin-Blood Gen Selected', detail:'16th Gen must be Thin-Blooded.' });
+          this.character.Clan = ClanType.ThinBlooded;
+        }
+        break;
+      case 15:
+      case 14:
+        if (this.character.Clan !== ClanType.ThinBlooded) {
+          this.alertSvc.add({severity:'warn', summary: 'Thin-Blood Gen Selected', detail:'Higher than 13th Gen is usually Thin-Blooded. This may require ST approval if left unchanged.' });
+        }
+        break;
+
+      case 13:
+      case 12:
+        break;
+      case 11:
+      case 10:
+      case 9:
+      case 8:
+        this.alertSvc.add({severity:'warn', summary: 'Low Gen Selected', detail:'Lower than 12th Gen may require ST approval.' });
+        break;
+      case 7:
+      case 6:
+        this.alertSvc.add({severity:'error', summary: 'Elder Gen Selected', detail:'Choosing an Elder Generation will require ST approval.' });
+        break;
+      case 5:
+      case 4:
+        this.alertSvc.add({severity:'error', summary: 'Methuselah Gen Selected', detail:'You cannot create a character as a Methuselah.' });
+        this.character.Generation = 13;
+        break;
+      case 3:
+        this.alertSvc.add({severity:'error', summary: 'Antediluvian Gen Selected', detail:'You cannot create a character as an Antediluvian.' });
+        this.character.Generation = 13;
+        break;
+      case 2:
+        this.alertSvc.add({severity:'error', summary: 'Enochian Gen Selected', detail:'You cannot create a character as an Enochian.' });
+        this.character.Generation = 13;
+        break;
+      case 1:
+        this.alertSvc.add({severity:'error', summary: 'Caine Selected', detail:'You cannot create a character as Caine.' });
+        this.character.Generation = 13;
+        break;
+    }      
   }
 
 }

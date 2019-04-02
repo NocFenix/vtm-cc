@@ -59,13 +59,17 @@
 
               <br />
               <span class="ui-float-label">
-                <p-dropdown [options]="clans" [(ngModel)]="character.Clan"></p-dropdown>
+                <p-dropdown [options]="clans" [(ngModel)]="character.Clan"
+                  (onChange)="checkGenForClan($event)">
+                </p-dropdown>
                 <label for="float-input">Clan</label>
               </span>
 
               <br />
               <span class="ui-float-label">
-                <p-dropdown [options]="generations" [(ngModel)]="character.Generation"></p-dropdown>
+                <p-dropdown [options]="generations" [(ngModel)]="character.Generation"
+                  (onChange)="checkClanForGen($event)" >
+                </p-dropdown>
                 <label for="float-input">Generation</label>
               </span>
             </div>
