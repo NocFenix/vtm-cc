@@ -5,7 +5,9 @@
     <div class="p-col-12 p-col-nogutter">
       <p-accordion [multiple]="true">
         <p-accordionTab header="Basic Information">
-          This is the basic information for your character.
+          <div class="pat-header-content">
+            This is the basic information for your character.
+          </div>
         </p-accordionTab>
         <div class="p-col-12">
           <div class="p-grid">
@@ -78,9 +80,34 @@
         </div>
 
         <p-accordionTab header="Attributes">
-          Starting attributes for a new character should have the following dot allocations: <br />
-          1 at 4 dots, 3 at 3 dots, 2 at 4 dots, and 1 at 1 dot. <br />
-          Anything outside of these allocations will require ST approval based on XP exependitures. <br />
+          <div class="pat-header-content">
+            Starting attributes for a new character should have the following dot allocations: <br />
+            <br />
+
+            <span style="font-weight: bold;">
+              <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="4" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+              in your character’s best attribute.
+            </span><br />
+            <span style="font-weight: bold;">
+              <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="1" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+              in your character’s worst attribute.
+            </span><br />
+            <span style="font-weight: bold;">
+              <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="3" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+              each for three attributes of your choice.
+            </span><br />
+            <span style="font-weight: bold;">
+              <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="2" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+              each for the remaining four attributes.
+            </span><br />
+            <br />
+
+            Anything outside of these allocations will require ST approval based on XP exependitures. <br />
+          </div>
         </p-accordionTab>
         <div class="p-col-12">
           <div class="p-grid">
@@ -89,7 +116,7 @@
               <div *ngFor="let pAttr of physicalAttr">
                 <span class="attrName">{{pAttr.Name}}</span>
                 <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
-                  [(ngModel)]="pAttr.Dots" (onRate)="onDotsChange($event, pAttr)">;</p-rating>
+                  [(ngModel)]="pAttr.Dots" (onRate)="onDotsChange($event, pAttr)" (onCancel)="onDotsClear(pAttr)">;</p-rating>
               </div>
             </div>
 
@@ -97,7 +124,7 @@
               <div *ngFor="let sAttr of socialAttr">
                 <span class="attrName">{{sAttr.Name}}</span>
                 <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
-                  [(ngModel)]="sAttr.Dots" (onRate)="onDotsChange($event, sAttr)">;</p-rating>
+                  [(ngModel)]="sAttr.Dots" (onRate)="onDotsChange($event, sAttr)" (onCancel)="onDotsClear(sAttr)">;</p-rating>
               </div>
             </div>
 
@@ -105,18 +132,74 @@
               <div *ngFor="let mAttr of mentalAttr">
                 <span class="attrName">{{mAttr.Name}}</span>
                 <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
-                  [(ngModel)]="mAttr.Dots" (onRate)="onDotsChange($event, mAttr)">;</p-rating>
+                  [(ngModel)]="mAttr.Dots" (onRate)="onDotsChange($event, mAttr)" (onCancel)="onDotsClear(mAttr)">;</p-rating>
               </div>
             </div>
-        
+
+            <div class="p-col-12 p-md-6">
+              <span class="attrName noClear">Health</span>
+              <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                [ngModel]="character.Health" [cancel]="false" readonly="true" stars="8">;</p-rating>
+            </div>
+            <div class="p-col-12 p-md-6">
+              <span class="attrName noClear">Willpower</span>
+              <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" iconCancelClass="pi pi-times"
+                [ngModel]="character.Willpower" [cancel]="false" readonly="true" stars="8">;</p-rating>
+            </div>
+          
           </div>
         </div>
 
         <p-accordionTab header="Skills">
-          Starting skills for a new character should have the following dot allocations: <br />
-          blah blah blah <br />
-          1 at 4 dots, 3 at 3 dots, 2 at 4 dots, and 1 at 1 dot. <br />
-          Anything outside of these allocations will require ST approval based on XP exependitures. <br />
+          <div class="pat-header-content">
+            Starting skills for a new character should have the following dot allocations: <br />
+            <br />
+
+            <span class="skillAllottmentName">Professions</span><br />
+            Decide on skills from past or current professions.<br />
+            <span style="font-weight: bold;">
+              Two skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="3" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+            <span style="font-weight: bold;">
+              Two skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="2" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+            * Choose a professional Specialty.<br />
+            <br />
+
+            <span class="skillAllottmentName">Life Events</span><br />
+            Decide on two defining life events.<br />
+            <span style="font-weight: bold;">
+              One teaches you one skill at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="3" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+            <span style="font-weight: bold;">
+              The other teaches you one skill at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="2" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating>
+            </span><br />
+            <br />
+
+            <span class="skillAllottmentName">Leisure Activities</span><br />
+            What do you do for kicks? Based on your hobbies take <br />
+            <span style="font-weight: bold;">
+              Three skills at <p-rating iconOnClass="pi pi-circle-on" iconOffClass="pi pi-circle-off" 
+                [ngModel]="1" readonly="true" stars="5" [cancel]="false" style="display:inline-block"></p-rating> each.
+            </span><br />
+            <br />
+
+            <span class="skillAllottmentName">Extra Skills</span><br />
+            At this point you have options to take a specialist or generalist package which determines how you spend your remaining dots.
+            <br />
+            <br />
+
+            Getting the first dot in Academics, Science, Craft or Performance grants a Specialty in that skill.
+            <br />
+            <br />
+
+            Anything outside of these allocations will require ST approval based on XP exependitures.
+            <br />
+          </div>
         </p-accordionTab>
         <div class="p-col-12">
           <div class="p-grid">

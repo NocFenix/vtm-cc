@@ -17,6 +17,8 @@ export class CharacterService {
       Generation: 13,
       Attributes: this.GetAttributes(),
       Skills: this.GetSkills(),
+      Health: 3,
+      Willpower: 0,
     };
   }
 

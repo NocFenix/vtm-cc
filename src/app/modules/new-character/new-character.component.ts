@@ -100,6 +100,12 @@ export class NewCharacterComponent implements OnInit {
   private attrTwoDotsAllowed: number = 4;
   private attrOneDotsAllowed: number = 1;
 
+  // skills at creation
+  //private skillFourDotsAllowed: number = 1;
+  private skillThreeDotsAllowed: number = 3;
+  private skillTwoDotsAllowed: number = 3;
+  private skillOneDotsAllowed: number = 3;
+
   constructor (
     private charSvc: CharacterService,
     private clanSvc: ClansService,
@@ -150,12 +156,27 @@ export class NewCharacterComponent implements OnInit {
     this.updateAttrDots(attr, +event.value);
   }
 
+  public onDotsClear(attr: Trait): void {
+    this.updateAttrDots(attr, 0);
+  }
+
   private updateAttrDots(attr: Trait, dots: number) {
     if (attr.IsAttribute) {
+      if (attr.Name === "Stamina") {
+        this.character.Health = 3 + attr.Dots;
+      }
+
+      if (attr.Name === "Resolve" || attr.Name === "Composure") {
+        let resolve = this.character.Attributes.find(a => a.Name === "Resolve");
+        let composure = this.character.Attributes.find(a => a.Name === "Composure");
+        this.character.Willpower = resolve.Dots + composure.Dots;
+      }
+
       let attrAtFourDots = 0;
       let attrAtThreeDots = 0;
       let attrAtTwoDots = 0;
       let attrAtOneDots = 0;
+
       this.character.Attributes.forEach(a => {
         if (a.Dots === 4)
           attrAtFourDots++;
@@ -192,6 +213,50 @@ export class NewCharacterComponent implements OnInit {
           this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Cannot set any attributes to ${dots}. This will require ST approval if left unchanged.` });
           break;
       }
+    }
+    else {
+      let skillAtFourDots = 0;
+      let skillAtThreeDots = 0;
+      let skillAtTwoDots = 0;
+      let skillAtOneDots = 0;
+
+      this.character.Skills.forEach(a => {
+        if (a.Dots === 4)
+          skillAtFourDots++;
+        if (a.Dots === 3)
+          skillAtThreeDots++;
+        if (a.Dots === 2)
+          skillAtTwoDots++;
+        if (a.Dots === 1)
+          skillAtOneDots++;
+      });
+
+      switch (dots) {
+        case 1:
+          if (skillAtOneDots > this.skillOneDotsAllowed) {
+            this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Exceeded maximum number of skills at ${dots}. This will require ST approval if left unchanged.` });
+          }
+          break;
+        case 2:
+          if (skillAtTwoDots > this.skillTwoDotsAllowed) {
+            this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Exceeded maximum number of skills at ${dots}. This will require ST approval if left unchanged.` });
+          }
+          break;
+        case 3:
+          if (skillAtThreeDots > this.skillThreeDotsAllowed) {
+            this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Exceeded maximum number of skills at ${dots}. This will require ST approval if left unchanged.` });
+          }
+          break;
+        case 4:
+          // if (skillAtFourDots > this.skillFourDotsAllowed) {
+          //   this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Exceeded maximum number of skills at ${dots}. This will require ST approval if left unchanged.` });
+          // }
+          // break;
+        case 5:
+          this.alertSvc.add({severity:'warn', summary: 'Invalid Dot Allocation', detail:`Cannot set any skills to ${dots}. This will require ST approval if left unchanged.` });
+          break;
+      }
+
     }
   }
 

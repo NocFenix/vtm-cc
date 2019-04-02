@@ -8,4 +8,6 @@ export interface Character {
   Skills: Trait[];
   Clan: ClanType;
   Generation: number;
+  Health: number;
+  Willpower: number;
 }
