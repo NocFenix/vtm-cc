@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CharacterService } from 'src/app/services/character.service';
-import { Character, ClanType, Trait, TraitType, SkillDistributionMethod } from 'src/app/models/index';
+import { Character, ClanType, Trait, TraitType, SkillDistributionMethod, PredatorType } from 'src/app/models/index';
 import { SelectItem, MessageService } from 'primeng/api';
 import { ClansService } from 'src/app/services/clans.service';
+import { PredatorTypeService } from 'src/app/services/predator-type.service';
 
 @Component({
   selector: 'vtm-new-character',
@@ -110,6 +111,7 @@ export class NewCharacterComponent implements OnInit {
     private charSvc: CharacterService,
     private clanSvc: ClansService,
     private alertSvc: MessageService,
+    private predatorSvc: PredatorTypeService,
   ) {
     
   }
@@ -118,6 +120,7 @@ export class NewCharacterComponent implements OnInit {
     this.character = this.charSvc.GetNewCharacter();
     this.FillAttributesAndSkills();
     this.UpdateClansList();
+    this.UpdatePredatorTypeList();
   }
 
   private UpdateClansList() {
@@ -150,6 +153,16 @@ export class NewCharacterComponent implements OnInit {
         this.mentalSkills.push(a);
     });
 
+  }
+
+  public UpdatePredatorTypeList(): void {
+    let predators = this.predatorSvc.GetPredatorTypes();
+    predators.forEach(p => {
+      this.predatorTypes.push({
+        label: p.Name,
+        value: p.Type
+      });
+    });
   }
 
   public skillDistributionMethod: SkillDistributionMethod = SkillDistributionMethod.Balanced;
@@ -374,6 +387,12 @@ export class NewCharacterComponent implements OnInit {
         this.character.Generation = 14;
       }
     }
+  }
+
+  public predatorTypes: SelectItem[] = [];
+
+  public updateBonusesFromPredatorType(event: any): void {
+
   }
 
 }

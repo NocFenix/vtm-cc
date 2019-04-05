@@ -14,112 +14,116 @@ export class DisciplineService {
     var disciplines: Discipline[] = [];
     switch(type){
       case ClanType.Brujah:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Celerity));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Potence));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Presence));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Celerity));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Potence));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Presence));
         break;
       case ClanType.Gangrel:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Animalism));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Fortitude));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Protean));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Animalism));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Fortitude));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Protean));
         break;
       case ClanType.Malkavian:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Auspex));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Dominate));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Obfuscate));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Auspex));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Dominate));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Obfuscate));
         break;
       case ClanType.Nosferatu:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Animalism));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Obfuscate));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Potence));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Animalism));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Obfuscate));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Potence));
         break;
       case ClanType.Toreader:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Auspex));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Celerity));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Presence));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Auspex));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Celerity));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Presence));
         break;
       case ClanType.Tremere:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Auspex));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.BloodSorcery));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Dominate));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Auspex));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.BloodSorcery));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Dominate));
         break;
       case ClanType.Ventrue:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Dominate));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Fortitude));
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.Presence));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Dominate));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Fortitude));
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.Presence));
         break;
       case ClanType.Caitiff:
         disciplines = this.allDisciplines;
         break;
       case ClanType.ThinBlooded:
-        disciplines.push(this.allDisciplines.find(d => d.DisciplineID == DisciplineID.ThinBloodAlchemy))
+        disciplines.push(this.allDisciplines.find(d => d.ID == DisciplineID.ThinBloodAlchemy))
     }
     return disciplines;
   }
 
+  public GetDisciplineByID(id: DisciplineID): Discipline {
+    return this.allDisciplines.find(x => x.ID == id);
+  }
+
   private allDisciplines: Discipline[] = [
     {
-      DisciplineID: DisciplineID.Animalism,
+      ID: DisciplineID.Animalism,
       Name: "Animalism",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Auspex,
+      ID: DisciplineID.Auspex,
       Name: "Auspex",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Celerity,
+      ID: DisciplineID.Celerity,
       Name: "Celerity",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Dominate,
+      ID: DisciplineID.Dominate,
       Name: "Dominate",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Fortitude,
+      ID: DisciplineID.Fortitude,
       Name: "Fortitude",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Obfuscate,
+      ID: DisciplineID.Obfuscate,
       Name: "Obfuscate",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Potence,
+      ID: DisciplineID.Potence,
       Name: "Potence",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Presence,
+      ID: DisciplineID.Presence,
       Name: "Presence",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.Protean,
+      ID: DisciplineID.Protean,
       Name: "Protean",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.BloodSorcery,
+      ID: DisciplineID.BloodSorcery,
       Name: "Blood Sorcery",
       Description: "",
       Dots: 0,
     },
     {
-      DisciplineID: DisciplineID.ThinBloodAlchemy,
+      ID: DisciplineID.ThinBloodAlchemy,
       Name: "Thin-Blood Alchemy",
       Description: "",
       Dots: 0,

@@ -6,7 +6,20 @@
       <p-accordion [multiple]="true">
         <p-accordionTab header="Basic Information">
           <div class="pat-header-content">
-            This is the basic information for your character.
+            This is the basic information for your character.<br />
+            <br />
+
+            Your Predator Type will grant you bonus dots in additional Skills, Disciplines, Merits, or Flaws.<br />
+            <br />
+
+            Your Clan will have an impact on your available Disciplines, your character Archetype, and Bane.<br />
+            <br />
+
+            Your Generation is how many "steps" away from Caine you are, Caine being the First Generation.
+            The higher the number, the further you are from Caine.<br />
+            Standard starting Generation is 13th or higher.<br />
+            <br />
+            
           </div>
         </p-accordionTab>
         <div class="p-col-12">
@@ -55,7 +68,9 @@
             <div class="p-col-12 p-md-4">
               <br />
               <span class="ui-float-label">
-                <input id="float-input" type="text" size="30" pInputText> 
+                <p-dropdown [options]="predatorTypes" [(ngModel)]="character.PredatorType"
+                  (onChange)="updateBonusesFromPredatorType($event)">
+                </p-dropdown>
                 <label for="float-input">Predator</label>
               </span>
 

@@ -2,7 +2,7 @@ import { TraitType } from './index';
 import { Power } from './index';
 
 export interface Discipline {
-  DisciplineID: number;
+  ID: DisciplineID;
   Name: string;
   Dots: number;
   Description: string;

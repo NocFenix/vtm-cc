@@ -1,4 +1,4 @@
-import { Trait, ClanType } from './index';
+import { Trait, ClanType, PredatorType } from './index';
 
 export interface Character {
   Name: string;
@@ -10,4 +10,5 @@ export interface Character {
   Generation: number;
   Health: number;
   Willpower: number;
+  PredatorType: PredatorType;
 }
