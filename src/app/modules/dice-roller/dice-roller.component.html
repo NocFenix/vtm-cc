@@ -1,0 +1,73 @@
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+
+<div class="p-grid">
+  <div class="p-col-12 p-md-10 p-col-nogutter">
+    <div class="p-col-12 p-col-nogutter">
+
+      <div class="p-col-12">
+        <div class="p-grid">
+
+          <div class="p-col-12 p-md-4">
+            <br />
+            <span class="ui-float-label">
+              <input id="float-input" type="text" size="30" pInputText vtmInputRestrict="numberOnly" [(ngModel)]="dicePool"> 
+              <label for="float-input">Dice Pool</label>
+            </span>
+          </div>
+
+          <div class="p-col-12 p-md-4">
+            <br />
+            <span class="ui-float-label">
+              <input id="float-input" type="text" size="30" pInputText vtmInputRestrict="numberOnly" [(ngModel)]="hungerDice"> 
+              <label for="float-input">Hunger Amount</label>
+            </span>
+          </div>
+
+          <div class="p-col-12 p-md-4">
+            <br />
+            <span class="ui-float-label">
+              <input id="float-input" type="text" size="30" pInputText vtmInputRestrict="numberOnly"  [(ngModel)]="targetSuccesses"> 
+              <label for="float-input">Successes Needed</label>
+            </span>              
+          </div>
+
+        </div>
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-grid">
+
+          <button (click)="rollDice()">Roll Dice</button>
+
+        </div>
+      </div>
+
+      <div class="p-col-12">
+        <div class="p-grid">
+
+          <div>
+            <h2>Results:</h2>
+            <div *ngIf="rolled" class="result-breakdown">
+              <span *ngIf="isSuccessful && !isMessyCritical">Success. ({{successes}} <span *ngIf="successes === 1">Success</span><span *ngIf="successes !== 1">Successes</span>)<br /></span>
+              <span *ngIf="!isSuccessful && !isBestialFailure">Failure. ({{successes}} <span *ngIf="successes === 1">Success</span><span *ngIf="successes !== 1">Successes</span>)<br /></span>
+              <span *ngIf="isMessyCritical" class="bestial">Messy Critical. ({{successes}} <span *ngIf="successes === 1">Success</span><span *ngIf="successes !== 1">Successes</span>)<br /></span>
+              <span *ngIf="isBestialFailure" class="bestial">Bestial Failure. ({{successes}} <span *ngIf="successes === 1">Success</span><span *ngIf="successes !== 1">Successes</span>)<br /></span>
+            </div>
+            <div *ngFor="let roll of rollResults" class="roll-results">
+              <span *ngIf="roll.IsHungerDie === true && roll.Result === 1"><img src="assets/01_Hunger_Bestial_Fail.png"/></span>
+              <span *ngIf="roll.IsHungerDie === true && roll.Result > 1 && roll.Result < 6"><img src="assets/02_05_Hunger_Fail.png"/></span>
+              <span *ngIf="roll.IsHungerDie === true && roll.Result > 5 && roll.Result < 10"><img src="assets/06_09_Hunger_Success.png"/></span>
+              <span *ngIf="roll.IsHungerDie === true && roll.Result === 10"><img src="assets/10_Hunger_Critical_Success.png"/></span>
+
+              <span *ngIf="roll.IsHungerDie === false && roll.Result < 6"><img src="assets/01_05_Normal_Fail.png"/></span>
+              <span *ngIf="roll.IsHungerDie === false && roll.Result > 5 && roll.Result < 10"><img src="assets/06_09_Normal_Success.png"/></span>
+              <span *ngIf="roll.IsHungerDie === false && roll.Result === 10"><img src="assets/10_Normal_Critical_Success.png"/></span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

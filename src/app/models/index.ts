@@ -8,3 +8,4 @@ export * from './power.model';
 export * from './dice-pool.model';
 export * from './predator.type';
 export * from './predator.model';
+export * from './roll-result.model';

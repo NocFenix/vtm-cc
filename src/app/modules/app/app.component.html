@@ -2,5 +2,9 @@
 <div class="header">
   {{title}}
 </div>
+<div class="nav">
+  <a routerLink="/new-character" routerLinkActive="active">New Character Sheet</a>
+  <a routerLink="/dice-roller" routerLinkActive="active">Dice Roller</a>
+</div>
 
-<vtm-new-character></vtm-new-character>
+<router-outlet></router-outlet>

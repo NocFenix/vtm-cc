@@ -1,10 +1,32 @@
+@import (reference) '../../../styles.less';
+
 .header {
-  background-color: black;
-  color: maroon;
+  background-color: #000;
+  color: @red;
   width: 100%;
   margin: 0;
   padding-left: 0.75em;
   font-weight: 400;
   font-family: 'Delavan';
   font-size: 48px;
+}
+
+.nav {
+  background-color: #000;
+  color: @red;
+  width: 100%;
+  margin: 0;
+  padding-left: 0.75em;
+  font-weight: 400;
+  font-family: 'Delavan';
+  & a {
+    color :white;
+    margin-left:12px;
+    &:hover {
+      color: @darkred;
+    }
+    &.active {
+      color: @lightred;
+    }
+  }
 }

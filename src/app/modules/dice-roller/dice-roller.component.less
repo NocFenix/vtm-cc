@@ -1,0 +1,59 @@
+@import (reference) '../../../styles.less';
+
+.p-col-nogutter {
+  background-color: lightgray;
+  margin-top: 8px;
+}
+
+.p-grid {
+  margin-left: 2em;
+}
+
+.ui-float-label>label {
+  color: @label_color;
+}
+
+.attrName {
+  font-weight: bolder;
+  margin-left: 23px;
+  color: @label_color;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  &.noClear {
+    margin-left: 3px;
+  }
+}
+
+.pat-header-content {
+  margin-left: 26px;
+}
+
+.skillAllottmentName {
+  color: @label_color;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-weight: bold;
+  font-size: 14pt;
+}
+
+:host ::ng-deep span.ui-rating-icon.pi.pi-circle-off {
+  color: @label_color;
+}
+
+:host ::ng-deep span.ui-rating-icon.pi.pi-times {
+  color: @red;
+}
+
+.roll-results {
+  display: inline-block;
+  & span img {
+    height:50px;
+  }
+}
+
+.result-breakdown {
+  color: @label_color;
+  font-weight: bold;
+  margin-bottom: 12px;
+  & .bestial {
+    color: @red;
+  }
+}

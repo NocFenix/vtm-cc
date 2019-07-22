@@ -127,6 +127,6 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "component-selector": [true,"element","vtm","kebab-case"],
+    "component-selector": [true,"element","vtm","kebab-case"]
   }
 }
